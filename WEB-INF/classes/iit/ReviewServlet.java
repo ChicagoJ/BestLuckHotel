@@ -63,7 +63,7 @@ public class ReviewServlet extends HttpServlet {
 		// insert/update the review into db
 		synchronized (session) {
 			ReviewDAO.insertOrUpdateReview(review);
-			ReviewDAO.insertReview(review);
+			// ReviewDAO.insertReview(review);
 		}
 		
 		// update the avg rating 

@@ -83,27 +83,68 @@
 			<article style="margin-left:35%">
 				
 				<h2> Trending</h2><hr/>
-                <h3> Top 5 most liked Hotel</h3><hr>
+                <h3> Top 5 highest rating Hotel</h3><hr>
                 <% 
                 HashMap<String, Double> top5MostLikedProducts = new HashMap<String, Double>();
                 top5MostLikedProducts = ReviewDAO.getTop5MostLikedProducts();
                 HashMap<String, Hotel> hotels = HotelDAO.getAllHotels();
-                   
+                Object [] a = top5MostLikedProducts.entrySet().toArray();
+                Arrays.sort(a, new Comparator() {
+                    public int compare(Object o1, Object o2){
+                        return ((Map.Entry<String, Double>) o2).getValue().compareTo(((Map.Entry<String, Double>) o1).getValue());
+                    }
+                });
+                        
 
                 %>
                 <table>
-                <%
-                for (Map.Entry entry : top5MostLikedProducts.entrySet()){
-                    Hotel hotel = hotels.get(entry.getKey());
+				<%
+				int c1 = 0;
+                for (Object e : a){
+					c1 ++;
+                    String hid = ((Map.Entry<String, Double>) e).getKey();
+                    Hotel hotel = hotels.get(hid);
                 %>
-                 <tr><td>--------------</td></tr>       
+				 <tr><td>--------------</td></tr> 
+				 <tr><td>Top #<%=c1%></td></tr>      
                 <tr><td>Hotel name : </td><td><%= hotel.getName() %></td></tr>
-                <tr><td>Rating: </td><td><%= entry.getValue()%></td></tr>
+                <tr><td>Rating: </td><td><%= ((Map.Entry<String, Double>) e).getValue()%></td></tr>
                 
                 <%
                 }    
                 %>
-            </table>
+			</table><br><br><hr>
+			
+			<h3> Top 5 most sold Hotel</h3><hr>
+			<% 
+			HashMap<String, Integer> top5MostSoldProducts = new HashMap<String, Integer>();
+			top5MostSoldProducts = ReviewDAO.getTop5MostSoldProducts();
+			Object [] b = top5MostSoldProducts.entrySet().toArray();
+			Arrays.sort(b, new Comparator() {
+				public int compare(Object o1, Object o2){
+					return ((Map.Entry<String, Integer>) o2).getValue().compareTo(((Map.Entry<String, Integer>) o1).getValue());
+				}
+			});
+					
+
+			%>
+			<table>
+			<%
+			int c2 = 0;
+			for (Object e : b){
+				c2 ++;
+				String hid = ((Map.Entry<String, Integer>) e).getKey();
+				Hotel hotel = hotels.get(hid);
+			%>
+			 <tr><td>--------------</td></tr>  
+			 <tr><td>Top #<%=c2%></td></tr>       
+			<tr><td>Hotel name : </td><td><%= hotel.getName() %></td></tr>
+			<tr><td>Sold Number: </td><td><%= ((Map.Entry<String, Integer>) e).getValue()%></td></tr>
+			
+			<%
+			}    
+			%>
+		</table>
 
             </article>
             <br><br><br><br><br><br>

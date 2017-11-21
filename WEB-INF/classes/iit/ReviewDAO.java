@@ -258,7 +258,7 @@ public class ReviewDAO {
 	
 	
 	/**
-	 * Statistics on Top 5 Products Sold regardless of rating
+	 * Statistics on Top 5 Products Sold by rating
 	 */
 	public static HashMap<String, Double> getTop5MostLikedProducts() {
 		HashMap<String, Double> top5MostLikedProducts = new HashMap<String, Double>();
@@ -288,7 +288,36 @@ public class ReviewDAO {
 		return top5MostLikedProducts;
 	}
 		
-	
+	/**
+	 * Statistics on Top 5 Products Sold regardless of rating
+	 */
+	public static HashMap<String, Integer> getTop5MostSoldProducts() {
+		HashMap<String, Integer> top5MostSoldProducts = new HashMap<String, Integer>();
+		
+		// get top reviews from db
+		String sql = "SELECT count(hid), hid FROM reviews GROUP BY hid order by count(hid) desc limit 5";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = connUtil.getConnection();
+			System.out.println("getTop5MostSoldProducts conn: " + conn);
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Integer cnthid = rs.getInt("count(hid)");
+				String hid = rs.getString("hid");
+				top5MostSoldProducts.put(hid, cnthid);
+	        }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			MySQLDataStoreUtilities.release(rs, ps);
+		}
+		return top5MostSoldProducts;
+	}
 	
 	/**
 	 * Returns a list of reviews where rating > num

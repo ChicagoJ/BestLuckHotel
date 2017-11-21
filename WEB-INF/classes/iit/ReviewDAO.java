@@ -122,7 +122,7 @@ public class ReviewDAO {
 		}
 		return reviewsMap;
 	}
-	
+	// use mongodb
 	public static void insertReview(Review review){
 		DBCollection myReviews;
 		MongoClient mongo;

@@ -23,6 +23,26 @@
 	<%
 		User user = (User) session.getAttribute("user");
 		int roomNumber = 0;
+		Process process = null;
+        String shpath="/Users/junyipeng/apache-tomcat-7.0.34/webapps/Hotel/test.sh";
+        String command = "/bin/sh " + shpath;
+
+        List<String> processList = new ArrayList<String>();
+
+        try {
+            process = Runtime.getRuntime().exec(command);
+            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = "";
+            while ((line = input.readLine()) != null) {
+                processList.add(line);
+            }
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (String line : processList) {
+            System.out.println(line);
+        }
 	%>
 
 	<!--header starts-->
@@ -218,7 +238,7 @@
 	<div class="package text-center">
         <div class="container">
             
-            <table><tr><td>Tweets from Twitter</td></tr>
+            <center><table><tr><td>Tweets from Twitter</td></tr>
                 <% 
                 File file = new File(request.getServletContext().getRealPath("/") +"DealMatches.txt");
                 FileReader fileReader = new FileReader(file);
@@ -229,7 +249,8 @@
                 int count = 0;
                 while ((line = bufferedReader.readLine()) != null) {
                      stringBuffer.append(line);
-                     stringBuffer.append("\n");
+					 stringBuffer.append("\n");
+					 count++;
                 %>
                     <br>
                     
@@ -247,11 +268,17 @@
                 System.out.println(stringBuffer);
                 
                 
-                fileReader.close();
-
-                %>
+				fileReader.close();
+				if (count == 0){
+					
+				%>
+					<tr><td> ------------------------------</td></tr>
+					<tr><td>There is no suggestion availuable from twitter now</td></tr>
+				<%
+				}
+				%>
                 <tr><td> ------------------------------</td></tr>
-                </table>
+                </table></center>
 
         </div>
         

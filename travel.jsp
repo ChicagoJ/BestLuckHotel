@@ -1,11 +1,13 @@
 <%@page import="iit.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.io.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%=Constant.NAME %> HOTELS Home</title>
+<title><%=Constant.NAME %> Travel suggestions</title>
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -79,12 +81,14 @@
 		</div>
 		<div class="banner">
 			<div class="banner-info text-center">
-				<h3>
-					<label>Hello,</label> You've Reached
-				</h3>
-				<h1><%=Constant.NAME %></h1>
+				<h3><hr />
+					<label>Hello,</label> Here are some travel suggestions from Twitter
+				<hr /></h3>
+                <!-- <h1><%=Constant.NAME %></h1> -->
+                    
 				<!-- auto-complete search bar -->
-				<label for="searchHotels"><font color="orange">Search Hotel:</font></label>&nbsp;
+                <br><br><br>
+                <label for="searchHotels"><font color="orange">Search Hotel:</font></label>&nbsp;
                	<input id="searchHotels" placeholder="hotel name"/>
                 <br><br>
 				<span></span>
@@ -212,7 +216,47 @@
 	
 	<!---->
 	<div class="package text-center">
-		<div class="container">
+        <div class="container">
+            
+            <table><tr><td>Tweets from Twitter</td></tr>
+                <% 
+                File file = new File(request.getServletContext().getRealPath("/") +"DealMatches.txt");
+                FileReader fileReader = new FileReader(file);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                ArrayList<String> pmnmae = new ArrayList<String>();
+                int count = 0;
+                while ((line = bufferedReader.readLine()) != null) {
+                     stringBuffer.append(line);
+                     stringBuffer.append("\n");
+                %>
+                    <br>
+                    
+                    <tr><td>
+                    ------------------------------
+                    </td></tr>
+                    <tr><td>
+                    <%=line%><br>
+           
+                    </td></tr>
+                <%
+
+
+                }
+                System.out.println(stringBuffer);
+                
+                
+                fileReader.close();
+
+                %>
+                <tr><td> ------------------------------</td></tr>
+                </table>
+
+        </div>
+        
+        
+        <div class="container">
 			<h3>Major Cities</h3>
 			<link href="css/owl.carousel.css" rel="stylesheet">
 			<script src="js/owl.carousel.js"></script>

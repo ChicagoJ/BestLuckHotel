@@ -50,6 +50,7 @@
 						<li class="scroll"><a href="cart.jsp">CART <%=(cart != null && !cart.isEmpty() ? "(" + cart.getRoomNumber() + ")" : "") %></a></li>
 						<li class="scroll"><a href="reservations.jsp">RESERVATIONS</a></li>
 						<li class="scoll"><a href="trending.jsp">TRENDING</a></li>
+						<li class="scoll"><a href="travel.jsp">TRAVEL SUGGESTION</a></li>						
 						
 						<li class="scroll"><a href="register.jsp">REGISTER</a></li>
 						<!-- <li class="scroll"><a href="restaurant.jsp">RESTAURANT</a></li> -->

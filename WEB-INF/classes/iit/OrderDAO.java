@@ -191,6 +191,32 @@ public class OrderDAO implements Serializable {
 		return id;
 	}
 	
+	/**
+	 * update an order into db
+	 */
+	public static Integer updateOrder(int oid, String username, String city, String zipcode, float cost) {
+		Integer id = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "UPDATE orders"
+				+  " SET city = \"" + city + "\", zipcode =\"" + zipcode + "\", cost = " + cost
+				+ " where id = " + oid + ";";
+		System.out.println(sql);
+		
+		try {
+			conn = connUtil.getConnection();
+			System.out.println(conn);
+			
+			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			MySQLDataStoreUtilities.release(rs, ps);
+		}
+		return id;
+	}
 	
 	/**
 	 * Remove an order from db by using the orderId

@@ -152,8 +152,24 @@ public class Order implements Serializable, Comparable<Order> {
 		setOrderTime(orderTime);
 		setCost(cost); 
 	}
+
+	public Order(Integer id, String confirmationId, String username,
+			Date orderTime, Date checkinDate, Date checkoutDate,
+			Date cancelDeadline, Float cost, String city, String zipCode){
+		super();
+		this.id = id;
+		this.confirmationId = confirmationId;
+		this.username = username;
+		this.orderTime = orderTime;
+		this.checkinDate = checkinDate;
+		this.checkoutDate = checkoutDate;
+		this.cancelDeadline = cancelDeadline;
+		this.cost = cost;
+		this.city = city;
+		this.zipCode = zipCode;			
+		}	
 	
-	@Override
+
 	public String toString() {
 		return "Order [id=" + id + ", confirmationId=" + confirmationId
 				+ ", username=" + username + ", orderTime=" + orderTime

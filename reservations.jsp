@@ -87,6 +87,16 @@
 				
 				%>
 				<br>
+
+				<table colspan="4" align="center">
+						<tr>
+								<td colspan="4" align="center"><a href="addOrder.jsp" >Add an order</a></td>                                
+						</tr>						
+						<tr>
+								<td colspan="4" align="center"><a href="updateOrder.jsp" >Update an order</a></td>                                
+						</tr>
+				</table>
+	
 			</article>
 				
 			<article style="margin-left:25%">
@@ -95,12 +105,15 @@
 						<%
 						if(user != null && user.getLevel() == 1) {
 						%>
+						<td align="center">Order ID</td>
 						<td align="center">User</td>
+						
 						<%
 						}
 						%>
 						<td align="center">Time</td>
 						<td align="center">Cost</td>
+						
 						<td>&nbsp;</td>
 					</tr>
 					
@@ -112,6 +125,7 @@
 				        for (Order order : orderList) {
 							
 							out.println("<tr>");
+							out.println("<td align=\"center\">" + order.getId() + "</td>");
 							out.println("<td align=\"center\">" + order.getUsername() + "</a></td>");
 							out.println("<td align=\"center\">" + order.getFormattedOrderTime() + "</a></td>");
 							out.println("<td align=\"center\">$" + String.format("%.2f", order.getCost()) + "</td>");
@@ -135,7 +149,7 @@
 				        Collections.sort(orderList);
 				        
 				        for (Order order : orderList) {
-						
+							//out.println("<td align=\"center\">Time</td><td align=\"center\">Cost</td>");
 							out.println("<tr>");
 							
 							out.println("<td align=\"center\"><a href=\"./reservation.jsp?oid=" + order.getId() + "\">" + order.getFormattedOrderTime() + "</a></td>");
@@ -154,6 +168,46 @@
 										+ "onclick='return confirm(\"Are you sure to remove this item?\")'>");
 								out.println("</form>");
 								out.println("</td>");
+                                /**ArrayList<OrderRoom> orderRooms = new ArrayList<OrderRoom>();
+                                orderRooms = OrderRoomDAO.getOrderRoomsByOrder(order);
+										for ( OrderRoom orderRoom : orderRooms){
+                                                out.println("<tr>");
+                                                
+                                                Room room = RoomDAO.getRoomById(orderRoom.getRoomId());
+                                                String roomType ="";
+                                                if (room.getRoomType().equals("f")){
+                                                        roomType += "Family Room";
+                                                } else if (room.getRoomType().equals("ld")){
+                                                        roomType += "Deluxe Double";
+                                                } else if (room.getRoomType().equals("ls")){
+                                                        roomType += "Deluxe Single";
+                                                } else if (room.getRoomType().equals("sd")){
+                                                        roomType += "Standard Double";
+                                                } else if (room.getRoomType().equals("ss")){
+                                                        roomType += "Standard Single";
+                                                }
+                                                String hname = HotelDAO.getNameById(orderRoom.getHid());
+                                                out.println("<td align=\"center\">" + hname + "</a></td>");                                                
+                                                out.println("<td align=\"center\">" + roomType + "</a></td>");
+                                                
+                                                out.println("<td align=\"center\">$" + String.format("%.2f", orderRoom.getPrice()) + "</td>");
+                                                
+                                                out.println("</tr>");
+                                        }
+                                        ArrayList<OrderRest> orderRests = new ArrayList<OrderRest>();
+                                        orderRests = OrderRestDAO.getOrderRestsByOrder(order);
+                                        for ( OrderRest orderRest : orderRests){
+                                                out.println("<tr>");
+                                                Restaurant rest = RestaurantDAO.getRestaurantById(orderRest.getRestId());
+        
+                                                out.println("<td align=\"center\">" + rest.getName() + "</a></td>");
+                                                out.println("<td align=\"center\"> - </a></td>");
+                                                out.println("<td align=\"center\">$" + String.format("%.2f", orderRest.getPrice()) + "</td>");
+                                                
+                                                out.println("</tr>");
+                                            }**/ 							
+								
+								
 							} 
 							else {
 								out.println("<td>Cancel deadline past.</td>");

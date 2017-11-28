@@ -76,9 +76,9 @@ dealMatchGauranteed=[]
 
 for tweet in timeline:
     deal = (tweet['text']).encode('ascii','ignore')
-    if (len(re.findall('New York|Miami|Houston|Boston',deal)) >= 1):
+    if (len(re.findall('NY|Miami|Houston|Boston',deal)) >= 1):
         dealMatchGauranteed = dealMatchGauranteed + [deal]
-        
+            
 
 
 
